@@ -28,4 +28,8 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getOne(scheduleId));
     }
 
+    @GetMapping
+    public ResponseEntity<List<GetScheduleResponse>> getScheduleList() {
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAll());
+    }
 }

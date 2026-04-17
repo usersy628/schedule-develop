@@ -16,14 +16,14 @@ public class Schedule extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String userName;
     private String title;
     private String content;
-    private String userName;
 
-    public Schedule(String title, String content, String userName) {
+    public Schedule(String userName, String title, String content) {
+        this.userName = userName;
         this.title = title;
         this.content = content;
-        this.userName = userName;
     }
 
     public void updateSchedule(String title, String content) {
