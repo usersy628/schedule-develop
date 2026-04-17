@@ -1,8 +1,6 @@
 package com.scheduledevelop.service;
 
-import com.scheduledevelop.dto.CreateScheduleRequest;
-import com.scheduledevelop.dto.CreateScheduleResponse;
-import com.scheduledevelop.dto.GetScheduleResponse;
+import com.scheduledevelop.dto.*;
 import com.scheduledevelop.entity.Schedule;
 import com.scheduledevelop.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
@@ -69,5 +67,23 @@ public class ScheduleService {
         return dtos;
     }
 
-
+    @Transactional
+    public UpdateScheduleResponse update(Long scheduleId, UpdateScheduleRequest request) {
+        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalStateException("해당 일정이 없습니다.")
+        );
+        schedule.updateSchedule(
+                request.getUserName(),
+                request.getTitle(),
+                request.getContent()
+        );
+        return new UpdateScheduleResponse(
+                schedule.getId(),
+                schedule.getUserName(),
+                schedule.getTitle(),
+                schedule.getContent(),
+                schedule.getCreatedAt(),
+                schedule.getModifiedAt()
+        );
+    }
 }
