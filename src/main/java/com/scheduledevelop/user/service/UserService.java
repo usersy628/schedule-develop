@@ -73,4 +73,13 @@ public class UserService {
                 user.getEmail()
         );
     }
+
+    @Transactional
+    public void delete(Long userId) {
+        boolean existence = userRepository.existsById(userId);
+        if (!existence) {
+            throw new IllegalStateException("존재하지 않는 유저입니다.");
+        }
+        userRepository.deleteById(userId);
+    }
 }
