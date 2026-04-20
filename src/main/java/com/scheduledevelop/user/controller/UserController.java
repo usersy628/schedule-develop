@@ -1,8 +1,6 @@
 package com.scheduledevelop.user.controller;
 
-import com.scheduledevelop.user.dto.CreateUserRequest;
-import com.scheduledevelop.user.dto.CreateUserResponse;
-import com.scheduledevelop.user.dto.GetUserResponse;
+import com.scheduledevelop.user.dto.*;
 import com.scheduledevelop.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,4 +31,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
     }
 
+    @PatchMapping("/{userId}")
+    public ResponseEntity<UpdateUserResponse> updateUser (@PathVariable Long userId, @RequestBody UpdateUserRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(userId, request));
+    }
 }
