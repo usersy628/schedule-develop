@@ -3,7 +3,6 @@ package com.scheduledevelop.user.service;
 import com.scheduledevelop.user.dto.*;
 import com.scheduledevelop.user.entity.User;
 import com.scheduledevelop.user.repository.UserRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +27,9 @@ public class UserService {
         return new CreateUserResponse(
                 savedUser.getId(),
                 savedUser.getUserName(),
-                savedUser.getEmail()
+                savedUser.getEmail(),
+                savedUser.getCreatedAt(),
+                savedUser.getModifiedAt()
         );
     }
 
@@ -40,7 +41,9 @@ public class UserService {
         return new GetUserResponse(
                 user.getId(),
                 user.getUserName(),
-                user.getEmail()
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getModifiedAt()
         );
     }
 
@@ -52,7 +55,9 @@ public class UserService {
             GetUserResponse  dto = new GetUserResponse(
                     user.getId(),
                     user.getUserName(),
-                    user.getEmail()
+                    user.getEmail(),
+                    user.getCreatedAt(),
+                    user.getModifiedAt()
             );
             dtos.add(dto);
         }
@@ -70,7 +75,9 @@ public class UserService {
         return new UpdateUserResponse(
                 user.getId(),
                 user.getUserName(),
-                user.getEmail()
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getModifiedAt()
         );
     }
 
