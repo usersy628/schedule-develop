@@ -2,12 +2,14 @@ package com.scheduledevelop.user.service;
 
 import com.scheduledevelop.user.dto.CreateUserRequest;
 import com.scheduledevelop.user.dto.CreateUserResponse;
+import com.scheduledevelop.user.dto.GetUserResponse;
 import com.scheduledevelop.user.entity.User;
 import com.scheduledevelop.user.repository.UserRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +28,18 @@ public class UserService {
                 savedUser.getId(),
                 savedUser.getUserName(),
                 savedUser.getEmail()
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public GetUserResponse getOne(@PathVariable Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new IllegalStateException("해당 유저가 존재하지 않습니다.")
+        );
+        return new GetUserResponse(
+                user.getId(),
+                user.getUserName(),
+                user.getEmail()
         );
     }
 }
