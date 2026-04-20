@@ -20,15 +20,20 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String userName;
 
-//    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    public User(String userName, String email) {
+    @Column(nullable = false)
+    private String password;
+
+
+    public User(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
+        this.password = password;
     }
 
     public void updateUserName(String userName) {
