@@ -1,11 +1,10 @@
-package com.scheduledevelop.entity;
+package com.scheduledevelop.schedule.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -16,11 +15,13 @@ public class Schedule extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String userName;
+
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
+
     private String content;
 
     public Schedule(String userName, String title, String content) {

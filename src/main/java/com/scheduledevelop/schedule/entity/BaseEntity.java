@@ -1,4 +1,4 @@
-package com.scheduledevelop.entity;
+package com.scheduledevelop.schedule.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

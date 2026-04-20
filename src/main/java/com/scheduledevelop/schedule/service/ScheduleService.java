@@ -1,8 +1,8 @@
-package com.scheduledevelop.service;
+package com.scheduledevelop.schedule.service;
 
-import com.scheduledevelop.dto.*;
-import com.scheduledevelop.entity.Schedule;
-import com.scheduledevelop.repository.ScheduleRepository;
+import com.scheduledevelop.schedule.dto.*;
+import com.scheduledevelop.schedule.entity.Schedule;
+import com.scheduledevelop.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,5 +85,14 @@ public class ScheduleService {
                 schedule.getCreatedAt(),
                 schedule.getModifiedAt()
         );
+    }
+
+    @Transactional
+    public void delete(Long scheduleId) {
+        boolean existence = scheduleRepository.existsById(scheduleId);
+        if (!existence) {
+            throw new IllegalStateException("해당 일정이 존재하지 않습니다.");
+        }
+        scheduleRepository.deleteById(scheduleId);
     }
 }
