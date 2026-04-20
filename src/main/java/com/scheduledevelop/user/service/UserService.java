@@ -25,7 +25,7 @@ public class UserService {
         );
         User savedUser = userRepository.save(user);
         return new CreateUserResponse(
-                savedUser.getId(),
+                savedUser.getUserId(),
                 savedUser.getUserName(),
                 savedUser.getEmail(),
                 savedUser.getCreatedAt(),
@@ -39,7 +39,7 @@ public class UserService {
                 () -> new IllegalStateException("해당 유저가 존재하지 않습니다.")
         );
         return new GetUserResponse(
-                user.getId(),
+                user.getUserId(),
                 user.getUserName(),
                 user.getEmail(),
                 user.getCreatedAt(),
@@ -53,7 +53,7 @@ public class UserService {
         List<GetUserResponse> dtos = new ArrayList<>();
         for (User user : users) {
             GetUserResponse  dto = new GetUserResponse(
-                    user.getId(),
+                    user.getUserId(),
                     user.getUserName(),
                     user.getEmail(),
                     user.getCreatedAt(),
@@ -73,7 +73,7 @@ public class UserService {
                 request.getUserName()
         );
         return new UpdateUserResponse(
-                user.getId(),
+                user.getUserId(),
                 user.getUserName(),
                 user.getEmail(),
                 user.getCreatedAt(),
@@ -88,5 +88,11 @@ public class UserService {
             throw new IllegalStateException("존재하지 않는 유저입니다.");
         }
         userRepository.deleteById(userId);
+    }
+
+    public User getUserById (Long userId) {
+        return userRepository.findById(userId).orElseThrow(
+                () -> new IllegalStateException("해당 유저는 존재하지 않습니다.")
+        );
     }
 }
