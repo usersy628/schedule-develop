@@ -15,5 +15,17 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-
+    @Transactional
+    public CreateUserResponse save(CreateUserRequest request) {
+        User user = new User(
+                request.getUserName(),
+                request.getEmail()
+        );
+        User savedUser = userRepository.save(user);
+        return new CreateUserResponse(
+                savedUser.getId(),
+                savedUser.getUserName(),
+                savedUser.getEmail()
+        );
+    }
 }
