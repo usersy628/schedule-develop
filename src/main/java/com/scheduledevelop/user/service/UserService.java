@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -41,5 +44,20 @@ public class UserService {
                 user.getUserName(),
                 user.getEmail()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetUserResponse> getAll() {
+        List<User> users = userRepository.findAll();
+        List<GetUserResponse> dtos = new ArrayList<>();
+        for (User user : users) {
+            GetUserResponse  dto = new GetUserResponse(
+                    user.getId(),
+                    user.getUserName(),
+                    user.getEmail()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
