@@ -1,6 +1,6 @@
 package com.scheduledevelop.user.entity;
 
-import com.scheduledevelop.schedule.entity.BaseEntity;
+import com.scheduledevelop.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
