@@ -1,4 +1,4 @@
-package com.scheduledevelop.user.controller;
+package com.scheduledevelop.schedule.controller;
 
 import com.scheduledevelop.schedule.dto.*;
 import com.scheduledevelop.schedule.service.ScheduleService;
