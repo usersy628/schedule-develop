@@ -44,12 +44,12 @@ public class ScheduleService {
                 () -> new IllegalStateException("해당 일정이 없습니다")
         );
         return new GetScheduleResponse(
-            schedule.getId(),
-            schedule.getUser().getUserId(),
-            schedule.getTitle(),
-            schedule.getContent(),
-            schedule.getCreatedAt(),
-            schedule.getModifiedAt()
+                schedule.getId(),
+                schedule.getUser().getUserId(),
+                schedule.getTitle(),
+                schedule.getContent(),
+                schedule.getCreatedAt(),
+                schedule.getModifiedAt()
         );
     }
 
