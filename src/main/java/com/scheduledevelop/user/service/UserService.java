@@ -1,5 +1,6 @@
 package com.scheduledevelop.user.service;
 
+import com.scheduledevelop.common.config.PasswordEncoder;
 import com.scheduledevelop.user.dto.*;
 import com.scheduledevelop.user.entity.User;
 import com.scheduledevelop.user.repository.UserRepository;
@@ -16,14 +17,17 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public CreateUserResponse save(CreateUserRequest request) {
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
         User user = new User(
                 request.getUserName(),
                 request.getEmail(),
-                request.getPassword()
+                encodedPassword
         );
+
         User savedUser = userRepository.save(user);
         return new CreateUserResponse(
                 savedUser.getUserId(),
