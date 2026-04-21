@@ -1,15 +1,18 @@
 package com.scheduledevelop.user.controller;
 
+import com.scheduledevelop.auth.dto.SessionUser;
 import com.scheduledevelop.user.dto.*;
 import com.scheduledevelop.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -32,9 +35,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
     }
 
-    @PatchMapping("/{userId}")
-    public ResponseEntity<UpdateUserResponse> updateUser (@PathVariable Long userId, @Valid @RequestBody UpdateUserRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.update(userId, request));
+    @PatchMapping
+    public ResponseEntity<UpdateUserResponse> updateUser (
+            @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
+            @Valid @RequestBody UpdateUserRequest request
+    ) {
+        if (sessionUser == null) {
+            throw new IllegalStateException("로그인이 필요합니다.");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(sessionUser.getId(), request));
     }
 
     @DeleteMapping("/{userId}")
