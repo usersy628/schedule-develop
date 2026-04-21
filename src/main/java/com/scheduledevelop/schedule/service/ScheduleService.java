@@ -30,7 +30,7 @@ public class ScheduleService {
         Schedule saveSchedule = scheduleRepository.save(schedule);
         return new CreateScheduleResponse(
                 saveSchedule.getId(),
-                saveSchedule.getUser(),
+                user.getUserId(),
                 saveSchedule.getTitle(),
                 saveSchedule.getContent(),
                 saveSchedule.getCreatedAt(),
@@ -76,9 +76,8 @@ public class ScheduleService {
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalStateException("해당 일정이 없습니다.")
         );
-        User user = userService.getUserById(schedule.getUser().getUserId());
         schedule.updateSchedule(
-                user,
+                schedule.getUser(),
                 request.getTitle(),
                 request.getContent()
         );
