@@ -1,14 +1,10 @@
 package com.scheduledevelop.user.entity;
 
 import com.scheduledevelop.schedule.entity.BaseEntity;
-import com.scheduledevelop.schedule.entity.Schedule;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -36,7 +32,8 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public void updateUserName(String userName) {
+    public void updateUser(String userName, String email) {
         this.userName = userName;
+        this.email = email;
     }
 }
