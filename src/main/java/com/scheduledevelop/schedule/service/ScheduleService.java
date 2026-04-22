@@ -1,5 +1,6 @@
 package com.scheduledevelop.schedule.service;
 
+import com.scheduledevelop.comment.repository.CommentRepository;
 import com.scheduledevelop.schedule.dto.*;
 import com.scheduledevelop.schedule.entity.Schedule;
 import com.scheduledevelop.schedule.repository.ScheduleRepository;
@@ -17,6 +18,7 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
     private final UserService userService;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public CreateScheduleResponse save(Long userId, CreateScheduleRequest request) {
@@ -79,6 +81,7 @@ public class ScheduleService {
         if (!existence) {
             throw new IllegalStateException("해당 일정이 존재하지 않습니다.");
         }
+        commentRepository.deleteByScheduleId(scheduleId);
         scheduleRepository.deleteById(scheduleId);
     }
 
