@@ -58,8 +58,9 @@ public class ScheduleService {
     }
 
     @Transactional
-    public UpdateScheduleResponse update(Long scheduleId, UpdateScheduleRequest request) {
+    public UpdateScheduleResponse update(Long scheduleId, Long loginUserId, UpdateScheduleRequest request) {
         Schedule schedule = getScheduleByIdOrThrow(scheduleId);
+        validateScheduleOwner(schedule, loginUserId);
         schedule.updateSchedule(
                 request.getTitle(),
                 request.getContent(),
@@ -76,11 +77,13 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void delete(Long scheduleId) {
+    public void delete(Long scheduleId, Long loginUserId) {
+        Schedule schedule = getScheduleByIdOrThrow(scheduleId);
         boolean existence = scheduleRepository.existsById(scheduleId);
         if (!existence) {
             throw new IllegalStateException("해당 일정이 존재하지 않습니다.");
         }
+        validateScheduleOwner(schedule, loginUserId);
         commentRepository.deleteByScheduleId(scheduleId);
         scheduleRepository.deleteById(scheduleId);
     }
@@ -89,5 +92,11 @@ public class ScheduleService {
         return scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalStateException("해당 일정이 존재하지 않습니다.")
         );
+    }
+
+    private void validateScheduleOwner(Schedule schedule, Long loginUserId) {
+        if (!schedule.getUser().getUserId().equals(loginUserId)) {
+            throw new IllegalStateException("본인 일정만 수정 또는 삭제할 수 있습니다.");
+        }
     }
 }

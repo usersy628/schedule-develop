@@ -1,15 +1,11 @@
 package com.scheduledevelop.schedule.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
 public class UpdateScheduleRequest {
-
-    @NotNull(message = "유저 ID는 필수입니다.")
-    private Long userId;
 
     @NotBlank(message = "일정 제목은 필수입니다.")
     @Size(max = 10, message = "일정 제목은 10글자 이내여야 합니다.")

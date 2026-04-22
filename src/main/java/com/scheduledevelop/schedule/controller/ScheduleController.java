@@ -46,15 +46,21 @@ public class ScheduleController {
 
     @PatchMapping("/{scheduleId}")
     public ResponseEntity<UpdateScheduleResponse> updateSchedule(
+            @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
             @PathVariable Long scheduleId,
             @Valid @RequestBody UpdateScheduleRequest request
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.update(scheduleId, request));
+        if (sessionUser == null) {
+            throw new IllegalStateException("로그인이 필요합니다.");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.update(scheduleId, sessionUser.getId(), request));
     }
 
     @DeleteMapping("/{scheduleId}")
-    public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId) {
-        scheduleService.delete(scheduleId);
+    public ResponseEntity<Void> deleteSchedule(
+            @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
+            @PathVariable Long scheduleId) {
+        scheduleService.delete(scheduleId, sessionUser.getId());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
