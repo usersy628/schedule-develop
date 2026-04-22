@@ -6,6 +6,8 @@ import com.scheduledevelop.schedule.repository.ScheduleRepository;
 import com.scheduledevelop.user.entity.User;
 import com.scheduledevelop.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,10 +25,10 @@ public class ScheduleService {
     public CreateScheduleResponse save(CreateScheduleRequest request) {
         User user = userService.getUserById(request.getUserId());
         Schedule schedule = new Schedule(
-                user,
                 request.getTitle(),
-                request.getContent()
-        );
+                request.getContent(),
+                user
+                );
         Schedule saveSchedule = scheduleRepository.save(schedule);
         return new CreateScheduleResponse(
                 saveSchedule.getId(),
@@ -77,10 +79,10 @@ public class ScheduleService {
                 () -> new IllegalStateException("해당 일정이 없습니다.")
         );
         schedule.updateSchedule(
-                schedule.getUser(),
                 request.getTitle(),
-                request.getContent()
-        );
+                request.getContent(),
+                schedule.getUser()
+                );
         return new UpdateScheduleResponse(
                 schedule.getId(),
                 schedule.getUser().getUserId(),
@@ -104,5 +106,19 @@ public class ScheduleService {
         return scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalStateException("해당 일정이 존재하지 않습니다.")
         );
+    }
+
+    public Page<SchedulePageResponse> findSchedulePage(Pageable pageable) {
+        Page<Schedule> schedulePage = scheduleRepository.findAll(pageable);
+
+        return schedulePage.map(schedule -> new SchedulePageResponse(
+                schedule.getId(),
+                schedule.getUser().getUserId(),
+                schedule.getUser().getUserName(),
+                schedule.getTitle(),
+                schedule.getContent(),
+                schedule.getCreatedAt(),
+                schedule.getModifiedAt()
+        ));
     }
 }

@@ -17,24 +17,24 @@ public class Schedule extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @Column(nullable = false)
     private String title;
 
     private String content;
 
-    public Schedule(User user, String title, String content) {
-        this.user = user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Schedule(String title, String content, User user) {
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 
-    public void updateSchedule(User user, String title, String content) {
-        this.user = user;
+    public void updateSchedule(String title, String content, User user) {
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 }
