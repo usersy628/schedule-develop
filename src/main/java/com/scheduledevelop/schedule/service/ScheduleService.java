@@ -19,8 +19,8 @@ public class ScheduleService {
     private final UserService userService;
 
     @Transactional
-    public CreateScheduleResponse save(CreateScheduleRequest request) {
-        User user = userService.getUserByIdOrThrow(request.getUserId());
+    public CreateScheduleResponse save(Long userId, CreateScheduleRequest request) {
+        User user = userService.getUserByIdOrThrow(userId);
         Schedule schedule = new Schedule(
                 request.getTitle(),
                 request.getContent(),

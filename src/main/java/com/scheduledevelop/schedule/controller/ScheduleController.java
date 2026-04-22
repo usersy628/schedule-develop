@@ -1,5 +1,6 @@
 package com.scheduledevelop.schedule.controller;
 
+import com.scheduledevelop.auth.dto.SessionUser;
 import com.scheduledevelop.schedule.dto.*;
 import com.scheduledevelop.schedule.service.ScheduleService;
 import jakarta.validation.Valid;
@@ -22,9 +23,13 @@ public class ScheduleController {
 
     @PostMapping
     public ResponseEntity<CreateScheduleResponse> createSchedule(
+            @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
             @Valid @RequestBody CreateScheduleRequest request
     ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.save(request));
+        if (sessionUser == null) {
+            throw new IllegalStateException("로그인이 필요합니다.");
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.save(sessionUser.getId(), request));
     }
 
     @GetMapping("/{scheduleId}")

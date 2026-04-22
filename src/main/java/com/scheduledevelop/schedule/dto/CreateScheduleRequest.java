@@ -9,9 +9,6 @@ import lombok.Getter;
 @Getter
 public class CreateScheduleRequest {
 
-    @NotNull(message = "유저 ID는 필수입니다.")
-    private Long userId;
-
     @NotBlank(message = "일정 제목은 필수입니다.")
     @Size(max = 10, message = "일정 제목은 10글자 이내여야 합니다.")
     private String title;

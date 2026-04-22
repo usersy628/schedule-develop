@@ -6,10 +6,8 @@ import com.scheduledevelop.auth.dto.SessionUser;
 import com.scheduledevelop.common.config.PasswordEncoder;
 import com.scheduledevelop.user.entity.User;
 import com.scheduledevelop.user.repository.UserRepository;
-import com.scheduledevelop.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
