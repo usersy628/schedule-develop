@@ -1,5 +1,6 @@
 package com.scheduledevelop.comment.controller;
 
+import com.scheduledevelop.auth.dto.SessionUser;
 import com.scheduledevelop.comment.dto.CreateCommentRequest;
 import com.scheduledevelop.comment.dto.CreateCommentResponse;
 import com.scheduledevelop.comment.dto.GetCommentResponse;
@@ -22,8 +23,15 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<CreateCommentResponse> saveComment(@Valid @RequestBody CreateCommentRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(request));
+    public ResponseEntity<CreateCommentResponse> saveComment(
+            @SessionAttribute(name = "loginUser", required = false) SessionUser sessionUser,
+            @Valid @RequestBody CreateCommentRequest request
+    ) {
+        if (sessionUser == null) {
+            throw new IllegalStateException("로그인이 필요합니다.");
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentService.save(sessionUser.getId(), request));
     }
 
     @GetMapping("/schedules/{scheduleId}")

@@ -24,8 +24,8 @@ public class CommentService {
     private final ScheduleService scheduleService;
 
     @Transactional
-    public CreateCommentResponse save(CreateCommentRequest request) {
-        User user = userService.getUserByIdOrThrow(request.getUserId());
+    public CreateCommentResponse save(Long userId, CreateCommentRequest request) {
+        User user = userService.getUserByIdOrThrow(userId);
         Schedule schedule = scheduleService.getScheduleByIdOrThrow(request.getScheduleId());
         Comment comment = new Comment(
                 request.getContent(),
@@ -36,8 +36,8 @@ public class CommentService {
         return new CreateCommentResponse(
                 savedComment.getId(),
                 savedComment.getContent(),
-                savedComment.getUser().getUserId(),
-                savedComment.getSchedule().getId(),
+                user.getUserId(),
+                schedule.getId(),
                 savedComment.getCreatedAt(),
                 savedComment.getModifiedAt()
         );

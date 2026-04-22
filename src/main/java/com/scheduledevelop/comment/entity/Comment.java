@@ -1,6 +1,5 @@
 package com.scheduledevelop.comment.entity;
 
-import com.scheduledevelop.comment.repository.CommentRepository;
 import com.scheduledevelop.common.entity.BaseEntity;
 import com.scheduledevelop.schedule.entity.Schedule;
 import com.scheduledevelop.user.entity.User;
