@@ -1,9 +1,11 @@
 package com.scheduledevelop.user.service;
 
+import com.scheduledevelop.auth.dto.SessionUser;
 import com.scheduledevelop.common.config.PasswordEncoder;
 import com.scheduledevelop.user.dto.*;
 import com.scheduledevelop.user.entity.User;
 import com.scheduledevelop.user.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +29,6 @@ public class UserService {
                 request.getEmail(),
                 encodedPassword
         );
-
         User savedUser = userRepository.save(user);
         return new CreateUserResponse(
                 savedUser.getUserId(),
