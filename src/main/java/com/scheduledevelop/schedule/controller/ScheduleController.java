@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -34,9 +32,11 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getOne(scheduleId));
     }
 
-    @GetMapping
-    public ResponseEntity<List<GetScheduleResponse>> getScheduleList() {
-        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAll());
+    @GetMapping("/page")
+    public ResponseEntity<Page<GetSchedulePageResponse>> getSchedulePage(
+            @PageableDefault(page = 0, size = 10) Pageable pageable
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.findSchedulePage(pageable));
     }
 
     @PatchMapping("/{scheduleId}")
@@ -51,12 +51,5 @@ public class ScheduleController {
     public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId) {
         scheduleService.delete(scheduleId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @GetMapping("/page")
-    public Page<SchedulePageResponse> findSchedulePage(
-            @PageableDefault(page = 0, size = 10) Pageable pageable
-    ) {
-        return scheduleService.findSchedulePage(pageable);
     }
 }

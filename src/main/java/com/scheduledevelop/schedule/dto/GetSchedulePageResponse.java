@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class SchedulePageResponse {
+public class GetSchedulePageResponse {
 
     private final Long id;
     private final String title;
@@ -15,7 +15,7 @@ public class SchedulePageResponse {
     private final LocalDateTime modifiedAt;
     private final Long userId;
 
-    public SchedulePageResponse(Long id, String title, String content, Long commentCount, LocalDateTime createdAt, LocalDateTime modifiedAt, Long userId) {
+    public GetSchedulePageResponse(Long id, String title, String content, Long commentCount, LocalDateTime createdAt, LocalDateTime modifiedAt, Long userId) {
         this.id = id;
         this.title = title;
         this.content = content;

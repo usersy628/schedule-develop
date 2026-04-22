@@ -11,9 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -56,21 +53,8 @@ public class ScheduleService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetScheduleResponse> getAll() {
-        List<Schedule> schedules = scheduleRepository.findAll();
-        List<GetScheduleResponse> dtos = new ArrayList<>();
-        for (Schedule schedule : schedules) {
-            GetScheduleResponse dto = new GetScheduleResponse(
-                    schedule.getId(),
-                    schedule.getUser().getUserId(),
-                    schedule.getTitle(),
-                    schedule.getContent(),
-                    schedule.getCreatedAt(),
-                    schedule.getModifiedAt()
-            );
-            dtos.add(dto);
-        }
-        return dtos;
+    public Page<GetSchedulePageResponse> findSchedulePage(Pageable pageable) {
+        return scheduleRepository.findSchedulePage(pageable);
     }
 
     @Transactional
@@ -106,9 +90,5 @@ public class ScheduleService {
         return scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalStateException("해당 일정이 존재하지 않습니다.")
         );
-    }
-
-    public Page<SchedulePageResponse> findSchedulePage(Pageable pageable) {
-        return scheduleRepository.findSchedulePage(pageable);
     }
 }

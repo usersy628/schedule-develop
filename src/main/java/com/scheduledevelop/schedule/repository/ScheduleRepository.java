@@ -1,6 +1,6 @@
 package com.scheduledevelop.schedule.repository;
 
-import com.scheduledevelop.schedule.dto.SchedulePageResponse;
+import com.scheduledevelop.schedule.dto.GetSchedulePageResponse;
 import com.scheduledevelop.schedule.entity.Schedule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +14,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     @Query(
         value = """
-            select new com.scheduledevelop.schedule.dto.SchedulePageResponse(
+            select new com.scheduledevelop.schedule.dto.GetSchedulePageResponse(
                 s.id,
                 s.title,
                 s.content,
@@ -33,6 +33,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             from Schedule s
             """
     )
-    Page<SchedulePageResponse> findSchedulePage(Pageable pageable);
+    Page<GetSchedulePageResponse> findSchedulePage(Pageable pageable);
     // JPQL에서는 limit/offset으로 접근하지 않고 Pageable을 사용
 }
