@@ -20,12 +20,12 @@ public class ScheduleService {
 
     @Transactional
     public CreateScheduleResponse save(CreateScheduleRequest request) {
-        User user = userService.getUserById(request.getUserId());
+        User user = userService.getUserByIdOrThrow(request.getUserId());
         Schedule schedule = new Schedule(
                 request.getTitle(),
                 request.getContent(),
                 user
-                );
+        );
         Schedule saveSchedule = scheduleRepository.save(schedule);
         return new CreateScheduleResponse(
                 saveSchedule.getId(),
@@ -39,9 +39,7 @@ public class ScheduleService {
 
     @Transactional(readOnly = true)
     public GetScheduleResponse getOne(Long scheduleId) {
-        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
-                () -> new IllegalStateException("해당 일정이 없습니다")
-        );
+        Schedule schedule = getScheduleByIdOrThrow(scheduleId);
         return new GetScheduleResponse(
                 schedule.getId(),
                 schedule.getUser().getUserId(),
@@ -59,14 +57,12 @@ public class ScheduleService {
 
     @Transactional
     public UpdateScheduleResponse update(Long scheduleId, UpdateScheduleRequest request) {
-        Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(
-                () -> new IllegalStateException("해당 일정이 없습니다.")
-        );
+        Schedule schedule = getScheduleByIdOrThrow(scheduleId);
         schedule.updateSchedule(
                 request.getTitle(),
                 request.getContent(),
                 schedule.getUser()
-                );
+        );
         return new UpdateScheduleResponse(
                 schedule.getId(),
                 schedule.getUser().getUserId(),
@@ -86,7 +82,7 @@ public class ScheduleService {
         scheduleRepository.deleteById(scheduleId);
     }
 
-    public Schedule getScheduleById(Long scheduleId) {
+    public Schedule getScheduleByIdOrThrow(Long scheduleId) {
         return scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new IllegalStateException("해당 일정이 존재하지 않습니다.")
         );
