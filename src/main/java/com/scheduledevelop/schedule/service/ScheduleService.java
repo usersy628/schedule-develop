@@ -99,4 +99,10 @@ public class ScheduleService {
         }
         scheduleRepository.deleteById(scheduleId);
     }
+
+    public Schedule getScheduleById(Long scheduleId) {
+        return scheduleRepository.findById(scheduleId).orElseThrow(
+                () -> new IllegalStateException("해당 일정이 존재하지 않습니다.")
+        );
+    }
 }
