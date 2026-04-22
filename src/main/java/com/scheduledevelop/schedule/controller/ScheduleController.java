@@ -55,7 +55,7 @@ public class ScheduleController {
 
     @GetMapping("/page")
     public Page<SchedulePageResponse> findSchedulePage(
-            @PageableDefault(page = 0, size = 10, sort = "modifiedAt") Pageable pageable
+            @PageableDefault(page = 0, size = 10) Pageable pageable
     ) {
         return scheduleService.findSchedulePage(pageable);
     }

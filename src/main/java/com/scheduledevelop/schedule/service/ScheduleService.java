@@ -109,16 +109,6 @@ public class ScheduleService {
     }
 
     public Page<SchedulePageResponse> findSchedulePage(Pageable pageable) {
-        Page<Schedule> schedulePage = scheduleRepository.findAll(pageable);
-
-        return schedulePage.map(schedule -> new SchedulePageResponse(
-                schedule.getId(),
-                schedule.getUser().getUserId(),
-                schedule.getUser().getUserName(),
-                schedule.getTitle(),
-                schedule.getContent(),
-                schedule.getCreatedAt(),
-                schedule.getModifiedAt()
-        ));
+        return scheduleRepository.findSchedulePage(pageable);
     }
 }
