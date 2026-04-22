@@ -39,7 +39,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public GetUserResponse getOne(@PathVariable Long userId) {
+    public GetUserResponse getOne(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new IllegalStateException("해당 유저가 존재하지 않습니다.")
         );
@@ -54,19 +54,9 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<GetUserResponse> getAll() {
-        List<User> users = userRepository.findAll();
-        List<GetUserResponse> dtos = new ArrayList<>();
-        for (User user : users) {
-            GetUserResponse  dto = new GetUserResponse(
-                    user.getUserId(),
-                    user.getUserName(),
-                    user.getEmail(),
-                    user.getCreatedAt(),
-                    user.getModifiedAt()
-            );
-            dtos.add(dto);
-        }
-        return dtos;
+        return userRepository.findAll().stream()
+                .map(this::toGetUserResponse)
+                .toList();
     }
 
     @Transactional
@@ -99,6 +89,16 @@ public class UserService {
     public User getUserById (Long userId) {
         return userRepository.findById(userId).orElseThrow(
                 () -> new IllegalStateException("해당 유저는 존재하지 않습니다.")
+        );
+    }
+
+    private GetUserResponse toGetUserResponse(User user) {
+        return new GetUserResponse(
+                user.getUserId(),
+                user.getUserName(),
+                user.getEmail(),
+                user.getCreatedAt(),
+                user.getModifiedAt()
         );
     }
 }

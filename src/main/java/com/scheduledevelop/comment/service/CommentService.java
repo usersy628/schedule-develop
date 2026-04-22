@@ -46,19 +46,19 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public List<GetCommentResponse> getAll(Long scheduleId) {
-        List<Comment> comments = commentRepository.findByScheduleIdOrderByModifiedAtDesc(scheduleId);
-        List<GetCommentResponse> dtos = new ArrayList<>();
-        for (Comment comment : comments) {
-            GetCommentResponse dto = new GetCommentResponse(
+        return commentRepository.findByScheduleIdOrderByModifiedAtDesc(scheduleId).stream()
+                .map(this::toGetCommentResponse)
+                .toList();
+    }
+
+    private GetCommentResponse toGetCommentResponse(Comment comment) {
+        return new GetCommentResponse(
                     comment.getId(),
                     comment.getContent(),
                     comment.getUser().getUserId(),
                     comment.getSchedule().getId(),
                     comment.getCreatedAt(),
                     comment.getModifiedAt()
-            );
-            dtos.add(dto);
-        }
-        return dtos;
+        );
     }
 }
