@@ -47,18 +47,7 @@ public class CommentService {
     @Transactional(readOnly = true)
     public List<GetCommentResponse> getAll(Long scheduleId) {
         return commentRepository.findByScheduleIdOrderByModifiedAtDesc(scheduleId).stream()
-                .map(this::toGetCommentResponse)
+                .map(GetCommentResponse::from)
                 .toList();
-    }
-
-    private GetCommentResponse toGetCommentResponse(Comment comment) {
-        return new GetCommentResponse(
-                    comment.getId(),
-                    comment.getContent(),
-                    comment.getUser().getUserId(),
-                    comment.getSchedule().getId(),
-                    comment.getCreatedAt(),
-                    comment.getModifiedAt()
-        );
     }
 }

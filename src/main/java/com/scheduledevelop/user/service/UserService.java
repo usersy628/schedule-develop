@@ -55,7 +55,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<GetUserResponse> getAll() {
         return userRepository.findAll().stream()
-                .map(this::toGetUserResponse)
+                .map(GetUserResponse::from)
                 .toList();
     }
 
@@ -89,16 +89,6 @@ public class UserService {
     public User getUserById (Long userId) {
         return userRepository.findById(userId).orElseThrow(
                 () -> new IllegalStateException("해당 유저는 존재하지 않습니다.")
-        );
-    }
-
-    private GetUserResponse toGetUserResponse(User user) {
-        return new GetUserResponse(
-                user.getUserId(),
-                user.getUserName(),
-                user.getEmail(),
-                user.getCreatedAt(),
-                user.getModifiedAt()
         );
     }
 }
