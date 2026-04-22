@@ -27,11 +27,11 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             left join Comment c on c.schedule.id = s.id
             group by s.id, s.title, s.content, s.createdAt, s.modifiedAt, s.user.userId
             order by s.modifiedAt desc
-            """,
+        """,
         countQuery = """
             select count(s)
             from Schedule s
-            """
+        """
     )
     Page<GetSchedulePageResponse> findSchedulePage(Pageable pageable);
     // JPQL에서는 limit/offset으로 접근하지 않고 Pageable을 사용
