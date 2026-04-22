@@ -1,17 +1,13 @@
 package com.scheduledevelop.user.service;
 
-import com.scheduledevelop.auth.dto.SessionUser;
 import com.scheduledevelop.common.config.PasswordEncoder;
 import com.scheduledevelop.user.dto.*;
 import com.scheduledevelop.user.entity.User;
 import com.scheduledevelop.user.repository.UserRepository;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +19,9 @@ public class UserService {
 
     @Transactional
     public CreateUserResponse save(CreateUserRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalStateException("중복된 이메일 입니다");
+        }
         String encodedPassword = passwordEncoder.encode(request.getPassword());
         User user = new User(
                 request.getUserName(),
