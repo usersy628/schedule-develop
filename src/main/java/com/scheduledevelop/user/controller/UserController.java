@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 사용자 관련 HTTP 요청을 처리하는 컨트롤러 클래스입니다.
+ *
+ * 클라이언트의 요청을 받아 회원가입, 회원 조회 등의 기능을 수행하며,
+ * 요청 데이터를 Service 계층으로 전달하고 결과를 응답합니다.
+ */
 @Slf4j
 @RestController
 @RequiredArgsConstructor

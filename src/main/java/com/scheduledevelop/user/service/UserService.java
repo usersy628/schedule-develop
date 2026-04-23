@@ -10,6 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * 사용자 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.
+ *
+ * 회원 조회, 회원 생성, 회원 정보 확인 등
+ * 사용자 도메인에서 필요한 핵심 로직을 담당합니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService {

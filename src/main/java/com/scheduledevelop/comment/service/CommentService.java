@@ -15,6 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * 댓글 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.
+ *
+ * 댓글 생성, 조회, 수정, 삭제 기능을 수행하며,
+ * 작성자 확인 및 일정과의 연관관계 검증을 담당합니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class CommentService {

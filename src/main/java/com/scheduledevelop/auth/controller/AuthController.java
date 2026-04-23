@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 인증 및 인가 관련 HTTP 요청을 처리하는 컨트롤러 클래스입니다.
+ *
+ * 로그인, 로그아웃, 인증 확인 등
+ * 사용자 인증 절차와 관련된 요청을 처리합니다.
+ */
 @Slf4j
 @RestController
 @RequiredArgsConstructor

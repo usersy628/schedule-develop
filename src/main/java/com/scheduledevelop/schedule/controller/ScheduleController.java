@@ -13,6 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 일정 관련 HTTP 요청을 처리하는 컨트롤러 클래스입니다.
+ *
+ * 일정 등록, 전체 조회, 단건 조회, 수정, 삭제 요청을 받아
+ * 서비스 계층으로 전달하고 처리 결과를 응답합니다.
+ */
 @Slf4j
 @RestController
 @RequiredArgsConstructor

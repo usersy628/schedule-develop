@@ -8,6 +8,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 댓글 정보를 저장하는 엔티티 클래스입니다.
+ *
+ * 댓글 내용, 작성일, 수정일을 관리하며,
+ * 사용자(User)와 일정(Schedule)과의 연관관계를 가집니다.
+ *
+ * 데이터베이스의 comment 테이블과 매핑됩니다.
+ */
 @Getter
 @Entity
 @Table(name = "comments")

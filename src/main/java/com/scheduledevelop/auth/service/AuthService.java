@@ -11,6 +11,12 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * 인증 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.
+ *
+ * 사용자의 로그인 검증, 비밀번호 확인, 인증 정보 처리 등
+ * 인증과 관련된 핵심 로직을 담당합니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthService {

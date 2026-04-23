@@ -12,6 +12,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 일정 관련 비즈니스 로직을 처리하는 서비스 클래스입니다.
+ *
+ * 일정 생성, 조회, 수정, 삭제 기능을 수행하며,
+ * 작성자 검증 및 권한 확인과 같은 핵심 로직을 담당합니다.
+ */
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {

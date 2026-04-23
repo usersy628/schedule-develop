@@ -9,6 +9,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 애플리케이션 전역 예외를 처리하는 핸들러 클래스입니다.
+ *
+ * 컨트롤러에서 발생하는 예외를 일관된 형식의 응답으로 변환하여
+ * 클라이언트에 전달하는 역할을 수행합니다.
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {

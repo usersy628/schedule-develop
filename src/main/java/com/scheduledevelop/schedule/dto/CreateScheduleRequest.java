@@ -6,6 +6,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
+/**
+ * 일정 생성 요청 데이터를 전달받기 위한 DTO입니다.
+ *
+ * 일정 작성 시 필요한 제목, 내용, 작성자 정보 등을 담습니다.
+ */
 @Getter
 public class CreateScheduleRequest {
 

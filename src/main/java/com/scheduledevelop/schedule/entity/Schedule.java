@@ -7,6 +7,14 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 일정 정보를 저장하는 엔티티 클래스입니다.
+ *
+ * 일정의 제목, 내용, 작성일, 수정일을 관리하며,
+ * 작성자(User)와 연관관계를 가집니다.
+ *
+ * 데이터베이스의 schedule 테이블과 매핑됩니다.
+ */
 @Getter
 @Entity
 @Table(name = "schedules")
